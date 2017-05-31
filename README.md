@@ -71,9 +71,15 @@ limitations under the License.
 [release-image]: http://img.shields.io/badge/release-0.1.0-blue.svg?style=flat
 [releases]: https://github.com/snowplow/snowplow-dotnet-analytics-sdk/releases
 
-[setup-guide]: https://github.com/snowplow/snowplow/wiki/.NET-Analytics-SDK-setup
-[user-guide]: https://github.com/snowplow/snowplow/wiki/.NET-Analytics-SDK
-[snowplow-wiki]: https://github.com/snowplow/snowplow/wiki
+[techdocs-image]: https://d3i6fms1cm1j0i.cloudfront.net/github/images/techdocs.png
+[setup-image]: https://d3i6fms1cm1j0i.cloudfront.net/github/images/setup.png
+[roadmap-image]: https://d3i6fms1cm1j0i.cloudfront.net/github/images/roadmap.png
+[contributing-image]: https://d3i6fms1cm1j0i.cloudfront.net/github/images/contributing.png
+
+[setup]: https://github.com/snowplow/snowplow/wiki/.NET-Analytics-SDK-setup
+[techdocs]: https://github.com/snowplow/snowplow/wiki/.NET-Analytics-SDK
+[roadmap]: https://github.com/snowplow/snowplow/wiki/.NET-Tracker-Roadmap
+[contributing]: https://github.com/snowplow/snowplow/wiki/.NET-Tracker-Contributing
 
 [snowplow]: http://snowplowanalytics.com
 [enriched-events]: https://github.com/snowplow/snowplow/wiki/canonical-event-model
