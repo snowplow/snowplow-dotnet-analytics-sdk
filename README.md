@@ -2,7 +2,7 @@
 
 The **[Snowplow][snowplow]** Analytics SDK for .NET lets you work with **[Snowplow enriched events][enriched-events]** in your Scala event processing and data modeling jobs.
 
-Use this SDK with **[Azure Data Lake Analytics][adla]**, **[AWS Lambda][lambda]**, **[Microsoft Orleans][orleans]** and other .NET-compatible data processing frameworks.
+Use this SDK with **[Azure Data Lake Analytics][adla]**, **[Azure Functions][af]**, **[AWS Lambda][lambda]**, **[Microsoft Orleans][orleans]** and other .NET-compatible data processing frameworks.
 
 ## Temporary spec for Devesh
 
@@ -86,5 +86,6 @@ limitations under the License.
 [event-data-modeling]: http://snowplowanalytics.com/blog/2016/03/16/introduction-to-event-data-modeling/
 
 [adla]: https://azure.microsoft.com/en-gb/services/data-lake-analytics/
+[af]: https://azure.microsoft.com/en-gb/services/functions/
 [lambda]: https://aws.amazon.com/lambda/
 [orleans]: https://dotnet.github.io/orleans/
