@@ -21,9 +21,12 @@ BUT don't bother making a PCL - just make it .NET Core.
 
 ### Background on Snowplow enriched event TSV
 
-Intro to the enriched event TSV - Anton to add
+Snowplow [enriched event][enriched-event-source] format is simply TSV line with 131 columns (as of current Snowplow version, supporting previous versions is out of scope of 0.1.0).
+Examples can be found in other [Analytics SDKs][enriched-event-example-scala] or in [Snowplow test suite][enriched-event-example-scala-2].
 
-Links to example enriched events in test suite - Anton to add.
+Most of TSV columns are simple string, ints, booleans or timestamps (should be stringified). These can be converted to JSON as-is.
+But there's also three special fields: `contexts`, `derived_contexts` and `unstruct_event`.
+These fields always contain self-descibing JSONs (JSON objects with `schema` and `data` keys), after transformation these JSONs must be in their own keys named after content of `schema`.
 
 ### Core functionality
 
@@ -42,6 +45,8 @@ You should implement this function signature:
 
 ```c#
 string EventTransformer.transform(string line)
+// which is user-facing version of
+JObject EventTransformer.transformTsv(string[] line)
 ```
 
 ## Find out more
@@ -82,6 +87,9 @@ limitations under the License.
 [contributing]: https://github.com/snowplow/snowplow/wiki/.NET-Tracker-Contributing
 
 [snowplow]: http://snowplowanalytics.com
+[enriched-event-source]: https://github.com/snowplow/snowplow/blob/master/3-enrich/scala-common-enrich/src/main/scala/com.snowplowanalytics.snowplow.enrich/common/outputs/EnrichedEvent.scala
+[enriched-event-example-scala]: https://github.com/snowplow/snowplow-scala-analytics-sdk/blob/master/src/test/scala/com.snowplowanalytics.snowplow.analytics.scalasdk.json/EventTransformerSpec.scala#L121
+[enriched-event-example-scala-2]: https://github.com/snowplow/snowplow/blob/master/3-enrich/scala-hadoop-shred/src/test/scala/com.snowplowanalytics.snowplow.enrich.hadoop/jobs/good/CrossBatchDeduplicationSpec.scala#L57-L67
 [enriched-events]: https://github.com/snowplow/snowplow/wiki/canonical-event-model
 [event-data-modeling]: http://snowplowanalytics.com/blog/2016/03/16/introduction-to-event-data-modeling/
 
