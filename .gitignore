@@ -186,3 +186,6 @@ snowplow-demo-app.db
 snowplow-demo-app-journal.db
 
 project.lock.json
+
+#macOS .DS_Store
+.DS_Store
