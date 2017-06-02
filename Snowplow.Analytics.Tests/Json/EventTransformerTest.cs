@@ -1,23 +1,21 @@
 /*
-* EventTransformerTest.cs
-* 
-* Copyright (c) 2017 Snowplow Analytics Ltd. All rights reserved.
-* This program is licensed to you under the Apache License Version 2.0},
-{
-* and you may not use this file except in compliance with the Apache License
-* Version 2.0. You may obtain a copy of the Apache License Version 2.0 at
-* http://www.apache.org/licenses/LICENSE-2.0.
-* Unless required by applicable law or agreed to in writing,
-* software distributed under the Apache License Version 2.0 is distributed on
-* an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
-* express or implied. See the Apache License Version 2.0 for the specific
-* language governing permissions and limitations there under.
-* Authors: Devesh Shetty
-* Copyright: Copyright (c) 2017 Snowplow Analytics Ltd
-* License: Apache License Version 2.0
-*/
+ * EventTransformerTest.cs
+ * 
+ * Copyright (c) 2017 Snowplow Analytics Ltd. All rights reserved.
+ * This program is licensed to you under the Apache License Version 2.0,
+ * and you may not use this file except in compliance with the Apache License
+ * Version 2.0. You may obtain a copy of the Apache License Version 2.0 at
+ * http://www.apache.org/licenses/LICENSE-2.0.
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the Apache License Version 2.0 is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the Apache License Version 2.0 for the specific
+ * language governing permissions and limitations there under.
+ * Authors: Devesh Shetty
+ * Copyright: Copyright (c) 2017 Snowplow Analytics Ltd
+ * License: Apache License Version 2.0
+ */
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
@@ -29,8 +27,6 @@ namespace Snowplow.Analytics.Tests.Json
 {
     public class EventTransformerTest
     {
-        private readonly EventTransformer _eventTransformer;
-
         private static readonly string _unstructJson = @"{
 		    ""schema"": ""iglu:com.snowplowanalytics.snowplow/contexts/jsonschema/1-0-0"",
 		    ""data"": {
@@ -435,11 +431,6 @@ namespace Snowplow.Analytics.Tests.Json
 			        ""event_fingerprint"": ""e3dbfa9cca0412c3d4052863cefb547f"",
 			        ""true_tstamp"": ""2013-11-26T00:03:57.886Z""
                 }");
-
-        public EventTransformerTest()
-        {
-            _eventTransformer = new EventTransformer();
-        }
 
         [Fact]
         public void TestTransform()

@@ -9,5 +9,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Json\" />
+    <Folder Include="Exceptions\" />
   </ItemGroup>
 </Project>
