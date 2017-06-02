@@ -1,5 +1,10 @@
 ﻿<Properties StartupConfiguration="{6D1EC5A6-0115-4CF0-B1FC-6C3E917529B8}|Default">
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Json/EventTransformer.cs">
+    <Files>
+      <File FileName="../Snowplow.Analytics.Tests/Json/EventTransformerTest.cs" Line="441" Column="9" />
+      <File FileName="Json/EventTransformer.cs" Line="26" Column="11" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />

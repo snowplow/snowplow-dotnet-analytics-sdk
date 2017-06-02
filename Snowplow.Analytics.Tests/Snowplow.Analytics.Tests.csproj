@@ -14,4 +14,7 @@
     <ProjectReference Include="..\Snowplow.Analytics\Snowplow.Analytics.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Json\" />
+  </ItemGroup>
 </Project>
