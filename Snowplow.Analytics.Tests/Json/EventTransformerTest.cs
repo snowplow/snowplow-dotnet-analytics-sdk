@@ -250,7 +250,7 @@ namespace Snowplow.Analytics.Tests.Json
                 { "true_tstamp", "2013-11-26 00:03:57.886"}
             };
 
-		private static readonly JObject _expected = JObject.Parse(@"{
+        private static readonly JObject _expected = JObject.Parse(@"{
 			    ""geo_location"" : ""37.443604,-122.4124"",
 			    ""app_id"" : ""angry-birds"",
 			    ""platform"" : ""web"",
@@ -436,7 +436,7 @@ namespace Snowplow.Analytics.Tests.Json
         public void TestTransform()
         {
             //convert data into TSV
-            var tsv = string.Join("\t", _input.Select(data => data.Value.Replace("\n", "")));
+            var tsv = string.Join("\t", _input.Select(data => data.Value.Replace("\n", string.Empty)));
             var transformedTsv = EventTransformer.Transform(tsv);
 
             Assert.Equal(JsonConvert.SerializeObject(_expected), transformedTsv);

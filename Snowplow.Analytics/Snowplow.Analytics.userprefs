@@ -1,18 +1,9 @@
 ﻿<Properties StartupConfiguration="{6D1EC5A6-0115-4CF0-B1FC-6C3E917529B8}|Default">
   <MonoDevelop.Ide.Workbench ActiveDocument="Json/EventTransformer.cs">
     <Files>
-      <File FileName="../Snowplow.Analytics.Tests/Json/EventTransformerTest.cs" Line="30" Column="1" />
-      <File FileName="Json/EventTransformer.cs" Line="50" Column="14" />
+      <File FileName="Json/EventTransformer.cs" Line="203" Column="41" />
+      <File FileName="../Snowplow.Analytics.Tests/Json/EventTransformerTest.cs" Line="440" Column="1" />
     </Files>
-    <Pads>
-      <Pad Id="MonoDevelop.UnitTesting.TestPad">
-        <State name="__root__">
-          <Node name="Snowplow.Analytics" expanded="True">
-            <Node name="Snowplow.Analytics.Tests" selected="True" />
-          </Node>
-        </State>
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
