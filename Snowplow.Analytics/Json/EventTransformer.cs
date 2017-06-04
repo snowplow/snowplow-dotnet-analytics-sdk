@@ -22,16 +22,17 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Snowplow.Analytics.Exceptions;
+using System.Text;
 
 namespace Snowplow.Analytics.Json
 {
-    public class EventTransformer
+    public static class EventTransformer
     {
-        private static JObject StringField(string key, string val) => JObject.FromObject(new { key = val });
-        private static JObject IntField(string key, string val) => JObject.FromObject(new { key = int.Parse(val) });
-        private static JObject DoubleField(string key, string val) => JObject.FromObject(new { key = double.Parse(val) });
+        private static JObject StringField(string key, string val) => JObject.Parse("{'" + key + "': '" + val + "'}");
+        private static JObject IntField(string key, string val) => JObject.Parse("{'" + key + "': " + int.Parse(val) + "}");
+        private static JObject DoubleField(string key, string val) => JObject.Parse("{'" + key + "': " + double.Parse(val) + "}");
         private static JObject BoolField(string key, string val) => HandleBooleanField(key, val);
-        private static JObject TstampField(string key, string val) => JObject.FromObject(new { key = ReformatTstamp(val) });
+        private static JObject TstampField(string key, string val) => JObject.Parse("{'" + key + "': '" + ReformatTstamp(val) + "'}");
 
         //TODO: Implement JsonShredder
         private static JObject CustomContextsField(string key, string val) => new JObject();
@@ -186,20 +187,14 @@ namespace Snowplow.Analytics.Json
         /// Converts an array of field values to a JSON whose keys are the field names
         /// </summary>
         /// <param name="eventArray">Array of values for the event</param>
-        /// <exception cref="SnowplowEventTransformationException"> Thrown when received count of fields is less than expected</exception>
+        /// <exception cref="SnowplowEventTransformationException"> </exception>
         /// <returns>ValidatedRecord containing JSON for the event and the event_id (if it exists)</returns>
         private static Func<string[], string> JsonifyGoodEvent = (eventArray) =>
         {
             if (eventArray.Length != ENRICHED_EVENT_FIELD_TYPES.Count)
             {
-                //Console.WriteLine("\n");
-                //for (int i = 0; i < eventArray.Length; i++)
-                //{
-                //    Console.WriteLine($"{i} => {eventArray[i]}");
-                //    Console.WriteLine("\n");
-                //}
-                //Console.WriteLine("\n");
-                throw new SnowplowEventTransformationException($"Expected {ENRICHED_EVENT_FIELD_TYPES.Count} fields, received {eventArray.Length} fields");
+                throw new SnowplowEventTransformationException($"Expected {ENRICHED_EVENT_FIELD_TYPES.Count} fields, " +
+                                                               $"received {eventArray.Length} fields.");
             }
             else
             {
@@ -213,20 +208,43 @@ namespace Snowplow.Analytics.Json
                     output.Add("geo_location", $"{latitude},{longitude}");
                 }
 
+                List<string> errors = new List<string>();
                 var keys = new List<string>(ENRICHED_EVENT_FIELD_TYPES.Keys);
                 for (int i = 0; i < keys.Count; i++)
                 {
                     var key = keys[i];
-                    if (!string.IsNullOrEmpty(eventArray[i]))
+                    if (string.IsNullOrEmpty(eventArray[i]))
                     {
-                        JObject obj = ENRICHED_EVENT_FIELD_TYPES[key](key, eventArray[i]);
-                        output[key] = obj.GetValue(key);
+                        output[key] = null;
                     }
-
+                    else
+                    {
+                        try
+                        {
+                            JObject obj = ENRICHED_EVENT_FIELD_TYPES[key](key, eventArray[i]);
+                            output[key] = obj.GetValue(key);
+                        }
+                        catch (SnowplowEventTransformationException sete)
+                        {
+                            errors.Add(sete.Message);
+                        }
+                        catch (Exception e)
+                        {
+                            errors.Add($"Unexpected exception parsing field with key {key} and value {eventArray[i]}: {e.Message}");
+                        }
+                    }
 
                 }
 
-                return JsonConvert.SerializeObject(output);
+                if (errors.Count == 0)
+                {
+                    return JsonConvert.SerializeObject(output);
+                }
+                else
+                {
+                    throw new SnowplowEventTransformationException(errors);
+                }
+
             }
         };
 
@@ -242,11 +260,11 @@ namespace Snowplow.Analytics.Json
         {
             if (val.Equals("1"))
             {
-                return JObject.FromObject(new { key = true });
+                return JObject.Parse("{'" + key + "': true }");
             }
             else if (val.Equals("0"))
             {
-                return JObject.FromObject(new { key = false });
+                return JObject.Parse("{'" + key + "': false }");
             }
 
             throw new SnowplowEventTransformationException($"Invalid value {val} for field {key}");

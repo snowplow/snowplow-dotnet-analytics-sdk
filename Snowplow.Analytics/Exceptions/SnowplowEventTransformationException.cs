@@ -17,12 +17,27 @@
  */
 
 using System;
+using System.Collections.Generic;
+
 namespace Snowplow.Analytics.Exceptions
 {
-    public class SnowplowEventTransformationException: Exception
+    public class SnowplowEventTransformationException : Exception
     {
-        public SnowplowEventTransformationException(string message) 
+        public List<string> ErrorMessage { get; set; }
+
+        public SnowplowEventTransformationException(List<string> messages)
+            : base(Modified(messages))
+        {
+            ErrorMessage = messages;
+        }
+
+        public SnowplowEventTransformationException(string message)
             : base(message)
-        { }
+        {
+            ErrorMessage = new List<string>() { message };
+        }
+
+        public static string Modified(List<string> messages) => string.Join("\n", messages);
+
     }
 }

@@ -1,8 +1,8 @@
 ﻿<Properties StartupConfiguration="{6D1EC5A6-0115-4CF0-B1FC-6C3E917529B8}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Json/EventTransformer.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="../Snowplow.Analytics.Tests/Json/EventTransformerTest.cs">
     <Files>
-      <File FileName="Json/EventTransformer.cs" Line="203" Column="41" />
-      <File FileName="../Snowplow.Analytics.Tests/Json/EventTransformerTest.cs" Line="440" Column="1" />
+      <File FileName="Json/EventTransformer.cs" Line="161" Column="46" />
+      <File FileName="../Snowplow.Analytics.Tests/Json/EventTransformerTest.cs" Line="358" Column="10" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
