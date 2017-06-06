@@ -19,7 +19,7 @@
 using System;
 namespace Snowplow.Analytics
 {
-    public sealed class Constants
+    public static class Constants
     {
         //Indexes to GeoPoint data
         public static class GeoPointIndexes
@@ -27,5 +27,9 @@ namespace Snowplow.Analytics
             public static readonly int LATITUDE_INDEX = 22;
             public static readonly int LONGITUDE_INDEX = 23;
         }
+
+        public static readonly string UNSTRUCT_EVENT_KEY = "unstruct_event";
+        public static readonly string CONTEXT_KEY = "contexts";
+
     }
 }

@@ -1,9 +1,30 @@
 ﻿<Properties StartupConfiguration="{6D1EC5A6-0115-4CF0-B1FC-6C3E917529B8}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="../Snowplow.Analytics.Tests/Json/EventTransformerTest.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Exceptions/SnowplowEventTransformationException.cs">
     <Files>
-      <File FileName="Json/EventTransformer.cs" Line="161" Column="46" />
-      <File FileName="../Snowplow.Analytics.Tests/Json/EventTransformerTest.cs" Line="358" Column="10" />
+      <File FileName="../Snowplow.Analytics.Tests/Json/JsonShredderTest.cs" Line="39" Column="18" />
+      <File FileName="../Snowplow.Analytics.Tests/Json/EventTransformerTest.cs" Line="419" Column="34" />
+      <File FileName="Constants.cs" Line="22" Column="34" />
+      <File FileName="Json/JsonShredder.cs" Line="210" Column="36" />
+      <File FileName="Json/EventTransformer.cs" Line="41" Column="41" />
+      <File FileName="Exceptions/SnowplowEventTransformationException.cs" Line="21" Column="1" />
     </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Snowplow.Analytics" expanded="True">
+            <Node name="Snowplow.Analytics" expanded="True">
+              <Node name="Exceptions" expanded="True">
+                <Node name="SnowplowEventTransformationException.cs" selected="True" />
+              </Node>
+              <Node name="Json" expanded="True" />
+            </Node>
+            <Node name="Snowplow.Analytics.Tests" expanded="True">
+              <Node name="Json" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

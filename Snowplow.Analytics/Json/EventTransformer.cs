@@ -17,12 +17,10 @@
  */
 
 using System;
-using System.Collections.Specialized;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Snowplow.Analytics.Exceptions;
-using System.Text;
 
 namespace Snowplow.Analytics.Json
 {
@@ -33,11 +31,9 @@ namespace Snowplow.Analytics.Json
         private static JObject DoubleField(string key, string val) => JObject.Parse("{'" + key + "': " + double.Parse(val) + "}");
         private static JObject BoolField(string key, string val) => HandleBooleanField(key, val);
         private static JObject TstampField(string key, string val) => JObject.Parse("{'" + key + "': '" + ReformatTstamp(val) + "'}");
-
-        //TODO: Implement JsonShredder
-        private static JObject CustomContextsField(string key, string val) => new JObject();
-        private static JObject DerivedContextsField(string key, string val) => new JObject();
-        private static JObject UnstructField(string key, string val) => new JObject();
+        private static JObject CustomContextsField(string key, string val) => JsonShredder.ParseContexts(val);
+        private static JObject DerivedContextsField(string key, string val) => JsonShredder.ParseContexts(val);
+        private static JObject UnstructField(string key, string val) => JsonShredder.ParseUnstruct(val);
 
         private static readonly Dictionary<string, Func<string, string, JObject>>
             ENRICHED_EVENT_FIELD_TYPES = new Dictionary<string, Func<string, string, JObject>>()
@@ -222,7 +218,11 @@ namespace Snowplow.Analytics.Json
                         try
                         {
                             JObject obj = ENRICHED_EVENT_FIELD_TYPES[key](key, eventArray[i]);
-                            output[key] = obj.GetValue(key);
+
+                            foreach (var prop in obj)
+                            {
+                                output[prop.Key] = prop.Value;
+                            }
                         }
                         catch (SnowplowEventTransformationException sete)
                         {
