@@ -23,13 +23,21 @@ namespace Snowplow.Analytics.Exceptions
 {
     public class SnowplowEventTransformationException : Exception
     {
-        public List<string> ErrorMessages { get; set; }
+        /// <summary>
+        /// Gets or sets the error messages.
+        /// </summary>
+        /// <value>The error messages.</value>
+        public List<string> ErrorMessages { get; }
 
+        /// <summary>
+        /// Gets the error message.
+        /// </summary>
+        /// <value>The message.</value>
         public override string Message
         {
             get
             {
-                return ErrorMessages[0];
+                return ConvertListToStringSequence(ErrorMessages);
             }
         }
 
