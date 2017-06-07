@@ -169,7 +169,7 @@ namespace Snowplow.Analytics.Tests.Json
                 { "true_tstamp", "2013-11-26 00:03:57.886"}
             };
 
-		private static readonly JObject _expected = JObject.Parse(@"{
+        private static readonly JObject _expected = JObject.Parse(@"{
                 'geo_location' : '37.443604,-122.4124',
                 'app_id' : 'angry-birds',
                 'platform' : 'web',

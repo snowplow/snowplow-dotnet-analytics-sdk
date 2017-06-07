@@ -29,6 +29,17 @@ namespace Snowplow.Analytics.Tests.Json
 {
     public class JsonShredderTest
     {
+        [Theory]
+        [InlineData("contexts", "iglu:com.acme/duplicated/jsonschema/20-0-5", "contexts_com_acme_duplicated_20")]
+        [InlineData("contexts", "iglu:com.pascal/VoidCase_dummy/jsonschema/80-0-5", "contexts_com_pascal_void_case_dummy_80")]
+        [InlineData("unstruct_event", "iglu:com.dev/VoidCase32/jsonschema/9-0-5", "unstruct_event_com_dev_void_case32_9")]
+        [InlineData("unstruct_event", "iglu:com.tesla/schema80TestDb_system/jsonschema/7-0-5", "unstruct_event_com_tesla_schema80_test_db_system_7")]
+        public void TestFixSchema(string prefix, string igluUri, string expected)
+        {
+            var fixedSchema = JsonShredder.FixSchema(prefix, igluUri);
+            Assert.Equal(expected, fixedSchema);
+        }
+
         [Fact]
         public void TestParseContexts()
         {
