@@ -64,7 +64,7 @@ namespace Snowplow.Analytics.Json
             }
             else
             {
-                throw new SnowplowEventTransformationException($"Schema {uri} does not conform to regular expression {SCHEMA_PATTERN}");
+                throw new SnowplowEventTransformationException($"Schema {uri} does not conform to schema pattern.");
             }
 
         }
@@ -114,24 +114,28 @@ namespace Snowplow.Analytics.Json
 
             var distinctContexts = new Dictionary<string, List<JToken>>();
 
-            //will have all the errors we encounter
+            //storing all the encountered errors.
             var errors = new HashSet<string>();
-
             foreach (var context in data)
             {
+                //an error flag
+                var errorEncountered = false;
+
                 var innerData = context["data"];
                 if (innerData == null)
                 {
                     errors.Add("Could not extract inner data field from custom context.");
+                    errorEncountered = true;
                 }
 
                 var contextSchema = context["schema"];
                 if (contextSchema == null)
                 {
-                    errors.Add("Context JSON did not contain a stringly typed schema field");
+                    errors.Add("Context JSON did not contain a stringly typed schema field.");
+                    errorEncountered = true;
                 }
 
-                if (errors.Count != 0)
+                if (errorEncountered)
                 {
                     //no point in processing further
                     continue;

@@ -17,6 +17,7 @@
  */
 
 using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Snowplow.Analytics.Exceptions;
@@ -69,7 +70,7 @@ namespace Snowplow.Analytics.Tests.Json
         public void TestContextWithMalformedField()
         {
             SnowplowEventTransformationException exception = null;
-            var malformedContext = "{\n  'schema': 'any',\n  'data': [\n    {\n      'schema': 'failing'\n    },\n    {\n      'data': {\n        'value': 2\n      }\n    },\n    {\n      'schema': 'iglu:com.acme/unduplicated/jsonschema/1-0-0'\n    }\n  ]\n}";
+            var malformedContext = "{\n  'schema': 'any',\n  'data': [\n    {\n      'schema': 'failing'\n    },\n    {\n      'schema': 'iglu:com.acme/unduplicated/jsonschema/1-0-0',\n      'data': {\n        'value': 2\n      }\n    }\n  ]\n}";
 
             try
             {
@@ -79,8 +80,7 @@ namespace Snowplow.Analytics.Tests.Json
             {
                 exception = sete;
             }
-
-            Assert.True(exception.ErrorMessages[0].Equals("Could not extract inner data field from custom context."));
+            Assert.True(exception.Message.Equals("Could not extract inner data field from custom context."));
         }
 
         [Fact]
@@ -98,7 +98,14 @@ namespace Snowplow.Analytics.Tests.Json
                 exception = sete;
             }
 
-            Assert.Equal(3, exception.ErrorMessages.Count);
+            var expectedExceptions = new List<string>() {
+                "Schema failing does not conform to schema pattern.",
+                "Context JSON did not contain a stringly typed schema field.",
+                "Could not extract inner data field from custom context." };
+
+            var exceptionList = expectedExceptions.Except(exception.ErrorMessages);
+            Assert.Equal(0, exceptionList.Count());
+
         }
 
         [Fact]
