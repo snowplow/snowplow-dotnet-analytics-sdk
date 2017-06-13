@@ -2,6 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.3</TargetFramework>
+    <PackageId>Snowplow.Analytics</PackageId>
+    <PackageVersion>0.1.0-beta</PackageVersion>
+    <Authors>Devesh Shetty</Authors>
+    <Description>The Snowplow Analytics SDK for .NET lets you work with Snowplow enriched events in your .NET event processing and data modeling jobs. Use this SDK with Azure Data Lake Analytics, Azure Functions, AWS Lambda, Microsoft Orleans and other .NET-compatible data processing frameworks.</Description>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageReleaseNotes>beta release</PackageReleaseNotes>
+    <Copyright>Copyright 2017</Copyright>
+    <PackageTags>snowplow analytics events transformer</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
