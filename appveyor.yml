@@ -13,7 +13,7 @@ init:
 nuget:
   disable_publish_on_pr: true
 before_build:
-- ps: dotnet restore
+- ps: dotnet restore Snowplow.Analytics/Snowplow.Analytics.sln
 build:
   project: Snowplow.Analytics.sln
   verbosity: minimal
