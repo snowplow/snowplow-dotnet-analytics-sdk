@@ -28,6 +28,6 @@ deploy:
 - provider: NuGet
   api_key:
     # NUGET_API_KEY
-    secure: fkik3XGPWwOjxaLG1W/cPSPU2tGlfo6E3E+sQPsAPOzXq92WlaNrHawiKbN8JfOa
+    secure: jWsKrrt/+Ku6P5vSQAMjT1OXYLdQ0KnzTEtrWqLMwF719dnrcJr18jSpCi9V6kqh
   on:
     appveyor_repo_tag: true
