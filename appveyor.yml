@@ -15,7 +15,7 @@ nuget:
 before_build:
 - ps: dotnet restore Snowplow.Analytics/Snowplow.Analytics.sln
 build:
-  project: Snowplow.Analytics.sln
+  project: Snowplow.Analytics/Snowplow.Analytics.sln
   verbosity: minimal
 test_script:
 - cmd: >-
