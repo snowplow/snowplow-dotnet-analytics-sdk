@@ -1,7 +1,7 @@
 # Snowplow .NET Analytics SDK
 
 [![Build Status][appveyor-image]][appveyor]
-[![Release][release-image]][releases] 
+[![Release][release-image]][releases]
 [![License][license-image]][license]
 
 ## Overview
@@ -36,7 +36,7 @@ limitations under the License.
 [license-image]: http://img.shields.io/badge/license-Apache--2-blue.svg?style=flat
 [license]: http://www.apache.org/licenses/LICENSE-2.0
 
-[release-image]: http://img.shields.io/badge/release-0.1.0-blue.svg?style=flat
+[release-image]: https://img.shields.io/badge/release-0.1.1-blue.svg?style=flat
 [releases]: https://github.com/snowplow/snowplow-dotnet-analytics-sdk/releases
 
 [techdocs-image]: https://d3i6fms1cm1j0i.cloudfront.net/github/images/techdocs.png
