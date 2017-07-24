@@ -1,3 +1,7 @@
+Version 0.2.0 (2017-07-24)
+--------------------------
+Downgrade the target to .NET Standard 1.1 (#7)
+
 Version 0.1.1 (2017-06-23)
 --------------------------
 JSON Event Transformer: don't add null unstruct_event and contexts fields to output (#5)
