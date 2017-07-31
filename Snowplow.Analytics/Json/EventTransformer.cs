@@ -27,11 +27,11 @@ namespace Snowplow.Analytics.Json
 {
     public static class EventTransformer
     {
-        private static JObject StringField(string key, string val) => JObject.Parse("{'" + key + "': '" + val + "'}");
-        private static JObject IntField(string key, string val) => JObject.Parse("{'" + key + "': " + int.Parse(val) + "}");
-        private static JObject DoubleField(string key, string val) => JObject.Parse("{'" + key + "': " + double.Parse(val) + "}");
+        private static JObject StringField(string key, string val) => JObject.Parse("{ \"" + key + "\": \"" + val + "\"}");
+        private static JObject IntField(string key, string val) => JObject.Parse("{\"" + key + "\": " + int.Parse(val) + "}");
+        private static JObject DoubleField(string key, string val) => JObject.Parse("{\"" + key + "\": " + double.Parse(val) + "}");
         private static JObject BoolField(string key, string val) => HandleBooleanField(key, val);
-        private static JObject TstampField(string key, string val) => JObject.Parse("{'" + key + "': '" + ReformatTstamp(val) + "'}");
+        private static JObject TstampField(string key, string val) => JObject.Parse("{\"" + key + "\": \"" + ReformatTstamp(val) + "\"}");
         private static JObject CustomContextsField(string key, string val) => JsonShredder.ParseContexts(val);
         private static JObject DerivedContextsField(string key, string val) => JsonShredder.ParseContexts(val);
         private static JObject UnstructField(string key, string val) => JsonShredder.ParseUnstruct(val);
@@ -270,11 +270,11 @@ namespace Snowplow.Analytics.Json
         {
             if (val.Equals("1"))
             {
-                return JObject.Parse("{'" + key + "': true }");
+                return JObject.Parse("{\"" + key + "\": true }");
             }
             else if (val.Equals("0"))
             {
-                return JObject.Parse("{'" + key + "': false }");
+                return JObject.Parse("{\"" + key + "\": false }");
             }
 
             throw new SnowplowEventTransformationException($"Invalid value {val} for field {key}");
