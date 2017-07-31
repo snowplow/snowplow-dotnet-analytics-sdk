@@ -62,7 +62,7 @@ namespace Snowplow.Analytics.Tests.Json
                 { "geo_zipcode", "94109"},
                 { "geo_latitude", "37.443604"},
                 { "geo_longitude", "-122.4124"},
-                { "geo_region_name", "Florida"},
+                { "geo_region_name", "Test o' florida'"},
                 { "ip_isp", "FDN Communications"},
                 { "ip_organization", "Bouygues Telecom"},
                 { "ip_domain", "nuvox.net"},
@@ -199,7 +199,7 @@ namespace Snowplow.Analytics.Tests.Json
                 { "geo_zipcode", "94109"},
                 { "geo_latitude", "37.443604"},
                 { "geo_longitude", "-122.4124"},
-                { "geo_region_name", "Florida"},
+                { "geo_region_name", "Test o' florida'"},
                 { "ip_isp", "FDN Communications"},
                 { "ip_organization", "Bouygues Telecom"},
                 { "ip_domain", "nuvox.net"},
@@ -337,7 +337,7 @@ namespace Snowplow.Analytics.Tests.Json
                 'geo_zipcode' : '94109',
                 'geo_latitude' : 37.443604,
                 'geo_longitude' : -122.4124,
-                'geo_region_name' : 'Florida',
+                'geo_region_name' : 'Test o\' florida\'',
                 'ip_isp' : 'FDN Communications',
                 'ip_organization' : 'Bouygues Telecom',
                 'ip_domain' : 'nuvox.net',
@@ -523,7 +523,7 @@ namespace Snowplow.Analytics.Tests.Json
                 'geo_zipcode' : '94109',
                 'geo_latitude' : 37.443604,
                 'geo_longitude' : -122.4124,
-                'geo_region_name' : 'Florida',
+                'geo_region_name' : 'Test o\' florida\'',
                 'ip_isp' : 'FDN Communications',
                 'ip_organization' : 'Bouygues Telecom',
                 'ip_domain' : 'nuvox.net',
@@ -644,12 +644,9 @@ namespace Snowplow.Analytics.Tests.Json
         {
             var input = GetInputWithContextAndUnstructEvent();
             var expected = GetSerializedExpectedOutputForInputWithContextAndUnstructEvent();
-
             var tsv = ConvertDictToTsv(input);
             var transformedTsv = EventTransformer.Transform(tsv);
-
             Assert.Equal(expected, transformedTsv);
-
         }
 
         [Fact]
@@ -663,7 +660,6 @@ namespace Snowplow.Analytics.Tests.Json
             var transformedTsv = EventTransformer.Transform(tsv);
 
             Assert.Equal(expected, transformedTsv);
-
         }
 
         [Fact]
