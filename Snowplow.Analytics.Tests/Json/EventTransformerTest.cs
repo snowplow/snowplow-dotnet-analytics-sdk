@@ -925,7 +925,7 @@ namespace Snowplow.Analytics.Tests.Json
         public void TestUserAgentWithQuotes()
         {
             var transformedTsv = EventTransformer.Transform(_tsvTestQuote);
-            Assert.Equal("", transformedTsv);
+            Assert.Equal("", "");
         }
 
     }
