@@ -27,7 +27,7 @@ namespace Snowplow.Analytics.Json
 {
     public static class EventTransformer
     {
-        private static JObject StringField(string key, string val) => JObject.Parse("{ \"" + key + "\": \"" + val.Replace("\"", "\\\"") + "\"}");
+        private static JObject StringField(string key, string val) => JObject.Parse("{ \"" + key + "\": \"" + val.Replace("\"", string.Empty) + "\"}");
         private static JObject IntField(string key, string val) => JObject.Parse("{\"" + key + "\": " + int.Parse(val) + "}");
         private static JObject DoubleField(string key, string val) => JObject.Parse("{\"" + key + "\": " + double.Parse(val) + "}");
         private static JObject BoolField(string key, string val) => HandleBooleanField(key, val);
