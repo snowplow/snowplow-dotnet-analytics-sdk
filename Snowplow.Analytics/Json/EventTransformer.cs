@@ -225,12 +225,14 @@ namespace Snowplow.Analytics.Json
                     }
                     else
                     {
+                        KeyValuePair<string, JToken> lastProp;
                         try
                         {
                             JObject obj = ENRICHED_EVENT_FIELD_TYPES[key](key, eventArray[i]);
 
                             foreach (var prop in obj)
                             {
+                                lastProp = prop;
                                 output[prop.Key] = prop.Value;
                             }
                         }
@@ -240,7 +242,8 @@ namespace Snowplow.Analytics.Json
                         }
                         catch (Exception e)
                         {
-                            errors.Add($"Unexpected exception parsing field with key {key} and value {eventArray[i]}: {e.Message}");
+                            var value = lastProp.Value ?? "undefined";
+                            errors.Add($"Unexpected!! debug exception parsing field with key {key} and value {value}: {e.Message}");
                         }
                     }
 
