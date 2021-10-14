@@ -27,7 +27,7 @@ namespace Snowplow.Analytics.Json
 {
     public static class EventTransformer
     {
-        private static JObject StringField(string key, string val) => JObject.Parse("{ \"" + key + "\": \"" + val.Replace("\"", "\\\"") + "\"}");
+        private static JObject StringField(string key, string val) => JObject.Parse("{ \"" + key + "\": \"" + ReformatString(val) + "\"}");
         private static JObject IntField(string key, string val) => JObject.Parse("{\"" + key + "\": " + int.Parse(val) + "}");
         private static JObject DoubleField(string key, string val) => JObject.Parse("{\"" + key + "\": " + double.Parse(val) + "}");
         private static JObject BoolField(string key, string val) => HandleBooleanField(key, val);
@@ -287,5 +287,6 @@ namespace Snowplow.Analytics.Json
         /// <returns>ISO 8601 timestamp</returns>
         private static string ReformatTstamp(string tstamp) => tstamp.Replace(" ", "T") + "Z";
 
+        private static string ReformatString(string s) => s.Replace("\"", "\\\"");
     }
 }
