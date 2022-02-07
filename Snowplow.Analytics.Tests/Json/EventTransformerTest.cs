@@ -635,7 +635,7 @@ namespace Snowplow.Analytics.Tests.Json
         private Dictionary<string, string> GetInputWithContextAndUnstructEventQuoteAgent()
         {
             var d = GetInputWithContextAndUnstructEvent();
-            d["useragent"] = "Mozilla/5.0 (Linux; Android 9; SM-G950U Build/PPR1.180610.011; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/94.0.4606.61 Mobile Safari/537.36 (\"Affirm - Android - 3.112.3 - 509\")";
+            d["useragent"] = "Mozilla/5.0 (Linux; Android 9; SM-G950U Build/PPR1.180610.011; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/94.0.4606.61 Mobile Safari/537.36 (\\\"Affirm - Android - 3.112.3 - 509\\\")";
             return d;
         }
 
@@ -753,7 +753,7 @@ namespace Snowplow.Analytics.Tests.Json
                 'pp_xoffset_max' : null,
                 'pp_yoffset_min' : null,
                 'pp_yoffset_max' : null,
-                'useragent' : 'Mozilla/5.0 (Linux; Android 9; SM-G950U Build/PPR1.180610.011; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/94.0.4606.61 Mobile Safari/537.36 (Affirm - Android - 3.112.3 - 509)',
+                'useragent' : 'Mozilla/5.0 (Linux; Android 9; SM-G950U Build/PPR1.180610.011; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/94.0.4606.61 Mobile Safari/537.36 (""Affirm - Android - 3.112.3 - 509\"")',
                 'br_name' : null,
                 'br_family' : null,
                 'br_version' : null,
