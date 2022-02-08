@@ -288,6 +288,6 @@ namespace Snowplow.Analytics.Json
         /// <returns>ISO 8601 timestamp</returns>
         private static string ReformatTstamp(string tstamp) => tstamp.Replace(" ", "T") + "Z";
 
-        private static string ReformatString(string s) => Regex.Replace(s, @"\*""", "\"");
+        private static string ReformatString(string s) => Regex.Replace(s, @"\\*""", "\\\"");
     }
 }
