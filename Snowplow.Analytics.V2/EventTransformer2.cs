@@ -194,6 +194,7 @@ public static class EventTransformer2
             }
 #endif
 
+            List<string> parseErrors = new List<string>();
             do
             {
                 var field = Fields[fieldIndex];
@@ -228,11 +229,19 @@ public static class EventTransformer2
                             break;
                         case FieldTypes.IntField:
                             writer.WritePropertyName(field.Id);
-                            writer.WriteValue(int.Parse(token));
+                            if (!int.TryParse(token, out int i))
+                            {
+                                parseErrors.Add($"Unexpected exception parsing field with key {field.Id} and value {token}");
+                            }
+                            writer.WriteValue(i);
                             break;
                         case FieldTypes.DoubleField:
                             writer.WritePropertyName(field.Id);
-                            writer.WriteValue(double.Parse(token));
+                            if (!double.TryParse(token, out double d))
+                            {
+                                parseErrors.Add($"Unexpected exception parsing field with key {field.Id} and value {token}: Input string was not in a correct format.");
+                            }
+                            writer.WriteValue(d);
                             break;
                         case FieldTypes.TstampField:
                             writer.WritePropertyName(field.Id);
@@ -243,7 +252,11 @@ public static class EventTransformer2
                             break;
                         case FieldTypes.BoolField:
                             writer.WritePropertyName(field.Id);
-                            writer.WriteValue(bool.Parse(token));
+                            if (!bool.TryParse(token, out bool b))
+                            {
+                                parseErrors.Add($"Invalid value {token} for field {field.Id}");
+                            }
+                            writer.WriteValue(b);
                             break;
                         case FieldTypes.CustomContextsField:
                         {
@@ -296,6 +309,11 @@ public static class EventTransformer2
 #endif
 
             writer.WriteEndObject();
+
+            if (parseErrors.Count > 0)
+            {
+                throw new SnowplowEventTransformationException2(parseErrors);
+            }
         }
         finally
         {

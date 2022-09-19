@@ -21,11 +21,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Snowplow.Analytics.Exceptions;
-using Snowplow.Analytics.Json;
+using Snowplow.Analytics.V3;
 using Xunit;
 
-namespace Snowplow.Analytics.Tests.Json
+namespace Snowplow.Analytics.Tests.V3
 {
     public class EventTransformer3Test
     {
@@ -645,7 +644,7 @@ namespace Snowplow.Analytics.Tests.Json
             var input = GetInputWithContextAndUnstructEvent();
             var expected = GetSerializedExpectedOutputForInputWithContextAndUnstructEvent();
             var tsv = ConvertDictToTsv(input);
-            var transformedTsv = EventTransformer.Transform(tsv);
+            var transformedTsv = EventTransformer3.Transform(tsv);
             Assert.Equal(expected, transformedTsv);
         }
 
@@ -657,7 +656,7 @@ namespace Snowplow.Analytics.Tests.Json
 
             //convert data into TSV
             var tsv = ConvertDictToTsv(input);
-            var transformedTsv = EventTransformer.Transform(tsv);
+            var transformedTsv = EventTransformer3.Transform(tsv);
 
             Assert.Equal(expected, transformedTsv);
         }
@@ -670,9 +669,9 @@ namespace Snowplow.Analytics.Tests.Json
 
             try
             {
-                EventTransformer.Transform(tsv);
+                EventTransformer3.Transform(tsv);
             }
-            catch (SnowplowEventTransformationException sete)
+            catch (SnowplowEventTransformationException3 sete)
             {
                 exception = sete;
             }
@@ -688,9 +687,9 @@ namespace Snowplow.Analytics.Tests.Json
 
             try
             {
-                EventTransformer.Transform(malformedFieldsTsv);
+                EventTransformer3.Transform(malformedFieldsTsv);
             }
-            catch (SnowplowEventTransformationException sete)
+            catch (SnowplowEventTransformationException3 sete)
             {
                 exception = sete;
             }
@@ -703,15 +702,15 @@ namespace Snowplow.Analytics.Tests.Json
         [Fact]
         protected void TestMultipleMalformedField()
         {
-            SnowplowEventTransformationException exception = null;
+            SnowplowEventTransformationException3 exception = null;
 
             var malformedFieldsTsv = new string('\t', 102) + "bad_dvce_ismobile" + new string('\t', 8) + "bad_tax_base" + new string('\t', 20);
 
             try
             {
-                EventTransformer.Transform(malformedFieldsTsv);
+                EventTransformer3.Transform(malformedFieldsTsv);
             }
-            catch (SnowplowEventTransformationException sete)
+            catch (SnowplowEventTransformationException3 sete)
             {
                 exception = sete;
             }

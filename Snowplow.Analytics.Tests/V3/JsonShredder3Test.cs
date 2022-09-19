@@ -22,9 +22,10 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Snowplow.Analytics.Exceptions;
 using Snowplow.Analytics.Json;
+using Snowplow.Analytics.V3;
 using Xunit;
 
-namespace Snowplow.Analytics.Tests.Json
+namespace Snowplow.Analytics.Tests.V3
 {
     public class JsonShredder3Test
     {
@@ -35,7 +36,7 @@ namespace Snowplow.Analytics.Tests.Json
         [InlineData("unstruct_event", "iglu:com.tesla/schema80TestDb_system/jsonschema/7-0-5", "unstruct_event_com_tesla_schema80_test_db_system_7")]
         public void TestFixSchema(string prefix, string igluUri, string expected)
         {
-            var fixedSchema = JsonShredder.FixSchema(prefix, igluUri);
+            var fixedSchema = JsonShredder3.FixSchema(prefix, igluUri);
             Assert.Equal(expected, fixedSchema);
         }
 
