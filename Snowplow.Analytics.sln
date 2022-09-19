@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snowplow.Analytics.Tests", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snowplow.Analytics.Benchmarks", "Snowplow.Analytics.Benchmarks\Snowplow.Analytics.Benchmarks.csproj", "{CB9C35C1-A7D6-4ABC-9FB1-C0D4FFD6C61E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snowplow.Analytics.V2", "Snowplow.Analytics.V2\Snowplow.Analytics.V2.csproj", "{23C6FF4A-5DB2-4BD9-9E89-4D3BD8962C98}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snowplow.Analytics.V2", "Snowplow.Analytics.V2\Snowplow.Analytics.V2.csproj", "{23C6FF4A-5DB2-4BD9-9E89-4D3BD8962C98}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snowplow.Analytics.V3", "Snowplow.Analytics.V3\Snowplow.Analytics.V3.csproj", "{F69DA32A-15C8-46B9-8FE6-609DA0C26C7E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{23C6FF4A-5DB2-4BD9-9E89-4D3BD8962C98}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{23C6FF4A-5DB2-4BD9-9E89-4D3BD8962C98}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{23C6FF4A-5DB2-4BD9-9E89-4D3BD8962C98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F69DA32A-15C8-46B9-8FE6-609DA0C26C7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F69DA32A-15C8-46B9-8FE6-609DA0C26C7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F69DA32A-15C8-46B9-8FE6-609DA0C26C7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F69DA32A-15C8-46B9-8FE6-609DA0C26C7E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

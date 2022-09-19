@@ -16,7 +16,6 @@
  * License: Apache License Version 2.0
  */
 
-using System;
 namespace Snowplow.Analytics
 {
     public static class Constants

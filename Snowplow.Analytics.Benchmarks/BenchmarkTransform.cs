@@ -1,6 +1,7 @@
 ﻿using BenchmarkDotNet.Attributes;
 using Snowplow.Analytics.Json;
 using Snowplow.Analytics.V2;
+using Snowplow.Analytics.V3;
 
 namespace Snowplow.Analytics.Benchmarks;
 
@@ -37,5 +38,18 @@ public class BenchmarkTransform
     public void EventTransformer_V2()
     {
         string result = EventTransformer2.Transform(_recordData);
+    }
+
+    /*
+     *|                    Method |      Mean |    Error |   StdDev | Allocated |
+     *|-------------------------- |----------:|---------:|---------:|----------:|
+     *| EventTransformer_Original | 133.88 us | 2.612 us | 3.910 us | 243.06 KB |
+     *|       EventTransformer_V2 |  59.89 us | 1.164 us | 1.513 us |  119.5 KB |
+     *|       EventTransformer_V3 |  54.89 us | 0.494 us | 0.386 us | 104.29 KB |
+     */
+    [Benchmark]
+    public void EventTransformer_V3()
+    {
+        string result = EventTransformer3.Transform(_recordData);
     }
 }

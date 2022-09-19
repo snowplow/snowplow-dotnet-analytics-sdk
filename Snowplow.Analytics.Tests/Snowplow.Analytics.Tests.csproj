@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Snowplow.Analytics.V2\Snowplow.Analytics.V2.csproj" />
+    <ProjectReference Include="..\Snowplow.Analytics.V3\Snowplow.Analytics.V3.csproj" />
     <ProjectReference Include="..\Snowplow.Analytics\Snowplow.Analytics.csproj" />
   </ItemGroup>
 

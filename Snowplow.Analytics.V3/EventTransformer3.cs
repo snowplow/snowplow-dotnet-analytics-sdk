@@ -1,8 +1,10 @@
-﻿using Newtonsoft.Json;
+﻿using System.Globalization;
+using System.Text.Json;
+using Newtonsoft.Json;
 
-namespace Snowplow.Analytics.V2;
+namespace Snowplow.Analytics.V3;
 
-public static class EventTransformer2
+public static class EventTransformer3
 {
     private static readonly X[] Fields =
     {
@@ -154,15 +156,10 @@ public static class EventTransformer2
     public static string Transform(ReadOnlySpan<char> line)
     {
         Stream stream = new MemoryStream();
-        using var streamWriter = new StreamWriter(stream);
-        using var writer = new JsonTextWriter(streamWriter);
-
-        ////var formatting = Formatting.Indented;
-        var formatting = Formatting.None;
-        int trim = formatting == Formatting.Indented ? 4 : 2;
-
-        // Temp
-        writer.Formatting = formatting;
+        using var writer = new Utf8JsonWriter(stream, new JsonWriterOptions
+        {
+            SkipValidation = true
+        });
 
         try
         {
@@ -212,8 +209,7 @@ public static class EventTransformer2
                         field.Field != FieldTypes.DerivedContextsField &&
                         field.Field != FieldTypes.UnstructField)
                     {
-                        writer.WritePropertyName(field.Id);
-                        writer.WriteNull();
+                        writer.WriteNull(field.Id);
                     }
                 }
                 else
@@ -223,35 +219,30 @@ public static class EventTransformer2
                     switch (field.Field)
                     {
                         case FieldTypes.StringField:
-                            writer.WritePropertyName(field.Id);
-                            writer.WriteValue(new string(token));
+                            writer.WriteString(field.Id, token);
                             break;
                         case FieldTypes.IntField:
-                            writer.WritePropertyName(field.Id);
-                            writer.WriteValue(int.Parse(token));
+                            writer.WriteNumber(field.Id, int.Parse(token, NumberStyles.Any, CultureInfo.InvariantCulture));
                             break;
                         case FieldTypes.DoubleField:
-                            writer.WritePropertyName(field.Id);
-                            writer.WriteValue(double.Parse(token));
+                            writer.WriteNumber(field.Id, double.Parse(token, NumberStyles.Any, CultureInfo.InvariantCulture));
                             break;
                         case FieldTypes.TstampField:
-                            writer.WritePropertyName(field.Id);
-                            ////writer.WriteValue(DateTime.Parse(token).ToString("yyyy-MM-ddTHH:mm:ss.FFFZ"));
-                            writer.WriteValue(new string(token)
+                            writer.WriteString(field.Id, new string(token)
                                 .TrimEnd('0') // Only to make it output-compatible with V1
                                 .Replace(' ', 'T') + 'Z');
                             break;
                         case FieldTypes.BoolField:
-                            writer.WritePropertyName(field.Id);
-                            writer.WriteValue(bool.Parse(token));
+                            writer.WriteBoolean(field.Id, bool.Parse(token));
                             break;
                         case FieldTypes.CustomContextsField:
                         {
                             if (token.Length > 0)
                             {
-                                var xx = JsonShredder2.ParseContexts(new string(token));
-                                var raw = xx.ToString(formatting);
-                                writer.WriteRaw(',' + new string(raw.AsSpan(1, raw.Length - trim)));
+                                var xx = JsonShredder3.ParseContexts(new string(token));
+                                var raw = xx.ToString(Formatting.None);
+                                string json = new string(raw.AsSpan(1, raw.Length - 2));
+                                writer.WriteRawValue(json, true);
                             }
 
                             break;
@@ -259,19 +250,21 @@ public static class EventTransformer2
 
                         case FieldTypes.UnstructField:
                         {
-                            var xx = JsonShredder2.ParseUnstruct(new string(token));
-                            var raw = xx.ToString(formatting);
-                            writer.WriteRaw(',' + new string(raw.AsSpan(1, raw.Length - trim)));
-                            break;
+                            var xx = JsonShredder3.ParseUnstruct(new string(token));
+                            var raw = xx.ToString(Formatting.None);
+                            string json = new string(raw.AsSpan(1, raw.Length - 2));
+                            writer.WriteRawValue(json, true);
+                                break;
                         }
 
                         case FieldTypes.DerivedContextsField:
                         {
                             if (token.Length > 0)
                             {
-                                var xx = JsonShredder2.ParseContexts(new string(token));
-                                var raw = xx.ToString(formatting);
-                                writer.WriteRaw(',' + new string(raw.AsSpan(1, raw.Length - trim)));
+                                var xx = JsonShredder3.ParseContexts(new string(token));
+                                var raw = xx.ToString(Formatting.None);
+                                string json = new string(raw.AsSpan(1, raw.Length - 2));
+                                writer.WriteRawValue(json, true);
                             }
 
                             break;
@@ -300,7 +293,6 @@ public static class EventTransformer2
         finally
         {
             writer.Flush();
-            streamWriter.Flush();
             stream.Flush();
             stream.Seek(0, SeekOrigin.Begin);
         }
