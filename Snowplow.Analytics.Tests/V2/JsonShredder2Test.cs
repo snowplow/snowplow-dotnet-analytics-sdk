@@ -105,7 +105,7 @@ namespace Snowplow.Analytics.Tests.V2
                 "Could not extract inner data field from custom context." };
 
             var exceptionList = expectedExceptions.Except(exception.ErrorMessages);
-            Assert.Equal(0, exceptionList.Count());
+            Assert.Empty( exceptionList);
 
         }
 

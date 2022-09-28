@@ -21,12 +21,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Snowplow.Analytics.V3;
+using Snowplow.Analytics.V4;
 using Xunit;
 
-namespace Snowplow.Analytics.Tests.V3
+namespace Snowplow.Analytics.Tests.V4
 {
-    public class EventTransformer3Test
+    public class EventTransformer4Test
     {
         private static readonly string _unstructJson = "{\n    'schema': 'iglu:com.snowplowanalytics.snowplow/contexts/jsonschema/1-0-0',\n    'data': {\n      'schema': 'iglu:com.snowplowanalytics.snowplow/link_click/jsonschema/1-0-1',\n      'data': {\n        'targetUrl': 'http://www.example.com',\n        'elementClasses': ['foreground'],\n        'elementId': 'exampleLink'\n      }\n    }\n  }";
 
@@ -644,7 +644,7 @@ namespace Snowplow.Analytics.Tests.V3
             var input = GetInputWithContextAndUnstructEvent();
             var expected = GetSerializedExpectedOutputForInputWithContextAndUnstructEvent();
             var tsv = ConvertDictToTsv(input);
-            var transformedTsv = EventTransformer3.Transform(tsv);
+            var transformedTsv = EventTransformer4.Transform(tsv);
             Assert.Equal(expected, transformedTsv);
         }
 
@@ -656,7 +656,7 @@ namespace Snowplow.Analytics.Tests.V3
 
             //convert data into TSV
             var tsv = ConvertDictToTsv(input);
-            var transformedTsv = EventTransformer3.Transform(tsv);
+            var transformedTsv = EventTransformer4.Transform(tsv);
 
             Assert.Equal(expected, transformedTsv);
         }
@@ -669,9 +669,9 @@ namespace Snowplow.Analytics.Tests.V3
 
             try
             {
-                EventTransformer3.Transform(tsv);
+                EventTransformer4.Transform(tsv);
             }
-            catch (SnowplowEventTransformationException3 sete)
+            catch (SnowplowEventTransformationException4 sete)
             {
                 exception = sete;
             }
@@ -687,31 +687,30 @@ namespace Snowplow.Analytics.Tests.V3
 
             try
             {
-                EventTransformer3.Transform(malformedFieldsTsv);
+                EventTransformer4.Transform(malformedFieldsTsv);
             }
-            catch (SnowplowEventTransformationException3 sete)
+            catch (SnowplowEventTransformationException4 sete)
             {
                 exception = sete;
             }
 
-            Assert.StartsWith("Unexpected exception parsing field with key tr_tax_base and value bad_tax_base",
-                exception?.Message,
-                StringComparison.CurrentCulture);
+            Assert.True(exception.Message.StartsWith("Unexpected exception parsing field with key tr_tax_base and value bad_tax_base",
+                                                     StringComparison.CurrentCulture));
 
         }
 
         [Fact]
         protected void TestMultipleMalformedField()
         {
-            SnowplowEventTransformationException3 exception = null;
+            SnowplowEventTransformationException4 exception = null;
 
             var malformedFieldsTsv = new string('\t', 102) + "bad_dvce_ismobile" + new string('\t', 8) + "bad_tax_base" + new string('\t', 20);
 
             try
             {
-                EventTransformer3.Transform(malformedFieldsTsv);
+                EventTransformer4.Transform(malformedFieldsTsv);
             }
-            catch (SnowplowEventTransformationException3 sete)
+            catch (SnowplowEventTransformationException4 sete)
             {
                 exception = sete;
             }
@@ -722,7 +721,9 @@ namespace Snowplow.Analytics.Tests.V3
                 };
 
             var exceptionList = expectedExceptions.Except(exception.ErrorMessages);
-            Assert.Empty(exceptionList);
+            Assert.Equal(0, exceptionList.Count());
+
         }
+
     }
 }

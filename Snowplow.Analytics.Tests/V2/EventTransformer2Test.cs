@@ -310,8 +310,7 @@ namespace Snowplow.Analytics.Tests.V2
 
         private string GetSerializedExpectedOutputForInputWithContextAndUnstructEvent()
         {
-            var expected = JObject.Parse(@"{
-                'geo_location' : '37.443604,-122.4124',
+            var expected = JObject.Parse(@"{                
                 'app_id' : 'angry-birds',
                 'platform' : 'web',
                 'etl_tstamp' : '2017-01-26T00:01:25.292Z',
@@ -488,7 +487,8 @@ namespace Snowplow.Analytics.Tests.V2
                 'event_format': 'jsonschema',
                 'event_version': '1-0-0',
                 'event_fingerprint': 'e3dbfa9cca0412c3d4052863cefb547f',
-                'true_tstamp': '2013-11-26T00:03:57.886Z'
+                'true_tstamp': '2013-11-26T00:03:57.886Z',
+                'geo_location' : '37.443604,-122.4124'
                 }");
 
             return JsonConvert.SerializeObject(expected);
@@ -496,8 +496,7 @@ namespace Snowplow.Analytics.Tests.V2
 
         private string GetSerializedExpectedOutputForInputWithoutContextAndUnstructEvent()
         {
-            var expected = JObject.Parse(@"{
-                'geo_location' : '37.443604,-122.4124',
+            var expected = JObject.Parse(@"{                
                 'app_id' : 'angry-birds',
                 'platform' : 'web',
                 'etl_tstamp' : '2017-01-26T00:01:25.292Z',
@@ -625,7 +624,8 @@ namespace Snowplow.Analytics.Tests.V2
                 'event_format': 'jsonschema',
                 'event_version': '1-0-0',
                 'event_fingerprint': 'e3dbfa9cca0412c3d4052863cefb547f',
-                'true_tstamp': '2013-11-26T00:03:57.886Z'
+                'true_tstamp': '2013-11-26T00:03:57.886Z',
+                'geo_location' : '37.443604,-122.4124'
                 }");
 
             return JsonConvert.SerializeObject(expected);

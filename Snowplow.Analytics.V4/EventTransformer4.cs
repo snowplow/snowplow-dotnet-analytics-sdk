@@ -1,11 +1,9 @@
-﻿using System.Globalization;
-using System.Text.Encodings.Web;
+﻿using System.Text.Encodings.Web;
 using System.Text.Json;
-using Newtonsoft.Json;
 
-namespace Snowplow.Analytics.V3;
+namespace Snowplow.Analytics.V4;
 
-public static class EventTransformer3
+public static class EventTransformer4
 {
     private static readonly X[] Fields =
     {
@@ -189,7 +187,7 @@ public static class EventTransformer3
 
             if (tabCount != Fields.Length - 1)
             {
-                throw new SnowplowEventTransformationException3($"Expected {Fields.Length} fields, received {tabCount + 1} fields.");
+                throw new SnowplowEventTransformationException4($"Expected {Fields.Length} fields, received {tabCount + 1} fields.");
             }
 #endif
 
@@ -283,42 +281,36 @@ public static class EventTransformer3
                             {
                                 writer.WriteBoolean(field.Id, b);
                             }
-                            
+
                             break;
                         case FieldTypes.CustomContextsField:
-                        {
-                            if (token.Length > 0)
                             {
-                                var xx = JsonShredder3.ParseContexts(new string(token));
-                                var raw = xx.ToString(Formatting.None);
-                                string json = new string(raw.AsSpan(1, raw.Length - 2));
-                                writer.WriteRawValue(json, true);
-                            }
+                                if (token.Length > 0)
+                                {
+                                    var json = JsonShredder4.ParseContexts(token);
+                                    writer.WriteRawValue(json, true);
+                                }
 
-                            break;
-                        }
+                                break;
+                            }
 
                         case FieldTypes.UnstructField:
-                        {
-                            var xx = JsonShredder3.ParseUnstruct(new string(token));
-                            var raw = xx.ToString(Formatting.None);
-                            string json = new string(raw.AsSpan(1, raw.Length - 2));
-                            writer.WriteRawValue(json, true);
-                                break;
-                        }
-
-                        case FieldTypes.DerivedContextsField:
-                        {
-                            if (token.Length > 0)
                             {
-                                var xx = JsonShredder3.ParseContexts(new string(token));
-                                var raw = xx.ToString(Formatting.None);
-                                string json = new string(raw.AsSpan(1, raw.Length - 2));
+                                var json = JsonShredder4.ParseUnstruct(token);
                                 writer.WriteRawValue(json, true);
+                                break;
                             }
 
-                            break;
-                        }
+                        case FieldTypes.DerivedContextsField:
+                            {
+                                if (token.Length > 0)
+                                {
+                                    var json = JsonShredder4.ParseContexts(token);
+                                    writer.WriteRawValue(json, true);
+                                }
+
+                                break;
+                            }
 
                         default:
                             // Should logically never be hit without code changes.
@@ -346,7 +338,7 @@ public static class EventTransformer3
 
             if (parseErrors.Count > 0)
             {
-                throw new SnowplowEventTransformationException3(parseErrors);
+                throw new SnowplowEventTransformationException4(parseErrors);
             }
         }
         finally

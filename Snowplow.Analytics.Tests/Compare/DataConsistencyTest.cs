@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using Snowplow.Analytics.Json;
 using Snowplow.Analytics.V2;
 using Snowplow.Analytics.V3;
+using Snowplow.Analytics.V4;
 using Xunit;
 
 namespace Snowplow.Analytics.Tests.Compare;
@@ -32,13 +33,25 @@ public sealed class EventTransformerComparison
         var output1 = EventTransformer.Transform(record);
         var output3 = EventTransformer3.Transform(record);
 
-        File.WriteAllText(@"C:\Users\jon.rea\Desktop\o1r.txt", output1);
-        File.WriteAllText(@"C:\Users\jon.rea\Desktop\o2r.txt", output3);
-        File.WriteAllText(@"C:\Users\jon.rea\Desktop\o1.txt", JsonConvert.SerializeObject(JObject.Parse(output1), Formatting.Indented));
-        File.WriteAllText(@"C:\Users\jon.rea\Desktop\o2.txt", JsonConvert.SerializeObject(JObject.Parse(output3), Formatting.Indented));
-
-
         output1.Length.Should().Be(output3.Length);
         output1.Should().Be(output3);
+    }
+
+    [Fact]
+    public void CanParseSampleRecord_V4()
+    {
+        var record = File.ReadAllText("Data/SampleRecord.txt");
+
+        var output1 = EventTransformer.Transform(record);
+        var output4 = EventTransformer4.Transform(record);
+
+        File.WriteAllText(@"C:\Users\jon.rea\Desktop\o1r.txt", output1);
+        File.WriteAllText(@"C:\Users\jon.rea\Desktop\o2r.txt", output4);
+        File.WriteAllText(@"C:\Users\jon.rea\Desktop\o1.txt", JsonConvert.SerializeObject(JObject.Parse(output1), Formatting.Indented));
+        File.WriteAllText(@"C:\Users\jon.rea\Desktop\o2.txt", JsonConvert.SerializeObject(JObject.Parse(output4), Formatting.Indented));
+
+
+        output1.Length.Should().Be(output4.Length);
+        output1.Should().Be(output4);
     }
 }
