@@ -1,0 +1,26 @@
+name: Build
+
+on:
+  push:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-20.04
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+
+    - name: Restore Snowplow.Analytics dependencies
+      run: dotnet restore Snowplow.Analytics/Snowplow.Analytics.sln
+
+    - name: Build Snowplow.Analytics
+      run: dotnet build Snowplow.Analytics/Snowplow.Analytics.sln --no-restore -c Release
+
+    - name: Test Snowplow.Analytics
+      run: dotnet test Snowplow.Analytics.Tests/Snowplow.Analytics.Tests.csproj --no-build --verbosity normal -c Release
