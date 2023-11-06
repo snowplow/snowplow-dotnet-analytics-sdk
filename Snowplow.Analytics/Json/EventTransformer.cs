@@ -19,6 +19,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Snowplow.Analytics.Exceptions;
@@ -27,7 +28,7 @@ namespace Snowplow.Analytics.Json
 {
     public static class EventTransformer
     {
-        private static JObject StringField(string key, string val) => JObject.Parse("{ \"" + key + "\": \"" + val + "\"}");
+        private static JObject StringField(string key, string val) => JObject.Parse("{ \"" + key + "\": \"" + ReformatString(val) + "\"}");
         private static JObject IntField(string key, string val) => JObject.Parse("{\"" + key + "\": " + int.Parse(val) + "}");
         private static JObject DoubleField(string key, string val) => JObject.Parse("{\"" + key + "\": " + double.Parse(val) + "}");
         private static JObject BoolField(string key, string val) => HandleBooleanField(key, val);
@@ -160,7 +161,7 @@ namespace Snowplow.Analytics.Json
                 {"etl_tags", StringField},
                 {"dvce_sent_tstamp", TstampField},
                 {"refr_domain_userid", StringField},
-                {"refr_device_tstamp", TstampField},
+                {"refr_dvce_tstamp", TstampField},
                 {"derived_contexts", DerivedContextsField},
                 {"domain_sessionid", StringField},
                 {"derived_tstamp", TstampField},
@@ -287,5 +288,11 @@ namespace Snowplow.Analytics.Json
         /// <returns>ISO 8601 timestamp</returns>
         private static string ReformatTstamp(string tstamp) => tstamp.Replace(" ", "T") + "Z";
 
+        /// <summary>
+        /// Fixes quotes in the string
+        /// </summary>
+        /// <param name="str">String to reformat</param>
+        /// <returns>Reformatted string</returns>
+        private static string ReformatString(string str) => Regex.Replace(str, @"\\*""", "\\\"");
     }
 }

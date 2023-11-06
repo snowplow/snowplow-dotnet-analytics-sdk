@@ -1,0 +1,50 @@
+name: Deploy
+
+on:
+  push:
+    tags:
+      - '*.*.*'
+
+jobs:
+  deploy:
+
+    runs-on: ubuntu-20.04
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+
+    - name: Get tag version information
+      id: version
+      run: |
+        echo "TAG_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
+
+    - name: Restore Snowplow.Analytics dependencies
+      run: dotnet restore Snowplow.Analytics/Snowplow.Analytics.csproj
+
+    - name: Build Snowplow.Analytics
+      run: dotnet build Snowplow.Analytics/Snowplow.Analytics.csproj --no-restore -c Release
+
+    - name: Pack Snowplow.Analytics
+      run: dotnet pack Snowplow.Analytics/Snowplow.Analytics.csproj --no-restore --no-build -c Release --include-symbols -p:SymbolPackageFormat=snupkg -o .
+
+    - name: Check nupkg version
+      uses: andstor/file-existence-action@v1
+      with:
+        files: "Snowplow.Analytics.${{ steps.version.outputs.TAG_VERSION }}.nupkg, Snowplow.Analytics.${{ steps.version.outputs.TAG_VERSION }}.snupkg"
+        allow_failure: true
+
+    - name: Publish Snowplow.Analytics
+      run: dotnet nuget push *.nupkg -s https://api.nuget.org/v3/index.json -k ${{secrets.NUGET_API_KEY}}
+
+    - name: Release on GitHub
+      uses: softprops/action-gh-release@v1
+      with:
+        name: Version ${{ steps.version.outputs.TAG_VERSION }}
+        prerelease: ${{ contains(steps.version.outputs.TAG_VERSION, '-') }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
