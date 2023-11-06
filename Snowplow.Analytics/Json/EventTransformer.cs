@@ -161,7 +161,7 @@ namespace Snowplow.Analytics.Json
                 {"etl_tags", StringField},
                 {"dvce_sent_tstamp", TstampField},
                 {"refr_domain_userid", StringField},
-                {"refr_device_tstamp", TstampField},
+                {"refr_dvce_tstamp", TstampField},
                 {"derived_contexts", DerivedContextsField},
                 {"domain_sessionid", StringField},
                 {"derived_tstamp", TstampField},
