@@ -12,10 +12,10 @@ Use this SDK with **[Azure Data Lake Analytics][adla]**, **[Azure Functions][af]
 
 ## Find out more
 
-| Technical Docs                  | Setup Guide               | Roadmap                 | Contributing                      |
-|---------------------------------|---------------------------|-------------------------|-----------------------------------|
-| ![i1][techdocs-image]           | ![i2][setup-image]       | ![i3][roadmap-image]   | ![i4][contributing-image]        |
-| **[Technical Docs][techdocs]** | **[Setup Guide][setup]** | **[Roadmap][roadmap]** | **[Contributing][contributing]** |## Copyright and license
+| Setup Guide               |
+|---------------------------|
+| ![i2][setup-image]       |
+| **[Setup Guide][setup]** |
 
 ## Copyright and license
 
@@ -33,28 +33,21 @@ limitations under the License.
 [appveyor-image]: https://ci.appveyor.com/api/projects/status/47dvoyc94i2i9gkq/branch/master?svg=true
 [appveyor]: https://ci.appveyor.com/project/snowplow/snowplow-dotnet-analytics-sdk
 
-[license-image]: http://img.shields.io/badge/license-Apache--2-blue.svg?style=flat
-[license]: http://www.apache.org/licenses/LICENSE-2.0
+[license-image]: https://img.shields.io/badge/license-Apache--2-blue.svg?style=flat
+[license]: https://www.apache.org/licenses/LICENSE-2.0
 
-[release-image]: https://img.shields.io/badge/release-0.2.1-blue.svg?style=flat
+[release-image]: https://img.shields.io/badge/release-0.3.0-blue.svg?style=flat
 [releases]: https://github.com/snowplow/snowplow-dotnet-analytics-sdk/releases
 
-[techdocs-image]: https://d3i6fms1cm1j0i.cloudfront.net/github/images/techdocs.png
 [setup-image]: https://d3i6fms1cm1j0i.cloudfront.net/github/images/setup.png
-[roadmap-image]: https://d3i6fms1cm1j0i.cloudfront.net/github/images/roadmap.png
-[contributing-image]: https://d3i6fms1cm1j0i.cloudfront.net/github/images/contributing.png
+[setup]: https://docs.snowplow.io/docs/modeling-your-data/analytics-sdk/analytics-sdk-net/
 
-[setup]: https://github.com/snowplow/snowplow/wiki/.NET-Analytics-SDK-setup
-[techdocs]: https://github.com/snowplow/snowplow/wiki/.NET-Analytics-SDK
-[roadmap]: https://github.com/snowplow/snowplow/wiki/.NET-Tracker-Roadmap
-[contributing]: https://github.com/snowplow/snowplow/wiki/.NET-Tracker-Contributing
-
-[snowplow]: http://snowplowanalytics.com
+[snowplow]: https://snowplow.io
 [enriched-event-source]: https://github.com/snowplow/snowplow/blob/master/3-enrich/scala-common-enrich/src/main/scala/com.snowplowanalytics.snowplow.enrich/common/outputs/EnrichedEvent.scala
 [enriched-event-example-scala]: https://github.com/snowplow/snowplow-scala-analytics-sdk/blob/master/src/test/scala/com.snowplowanalytics.snowplow.analytics.scalasdk.json/EventTransformerSpec.scala#L121
 [enriched-event-example-scala-2]: https://github.com/snowplow/snowplow/blob/master/3-enrich/scala-hadoop-shred/src/test/scala/com.snowplowanalytics.snowplow.enrich.hadoop/jobs/good/CrossBatchDeduplicationSpec.scala#L57-L67
-[enriched-events]: https://github.com/snowplow/snowplow/wiki/canonical-event-model
-[event-data-modeling]: http://snowplowanalytics.com/blog/2016/03/16/introduction-to-event-data-modeling/
+[enriched-events]: https://docs.snowplow.io/docs/understanding-your-pipeline/canonical-event/
+[event-data-modeling]: https://snowplow.io/blog/introduction-to-event-data-modeling/
 
 [adla]: https://azure.microsoft.com/en-gb/services/data-lake-analytics/
 [af]: https://azure.microsoft.com/en-gb/services/functions/
